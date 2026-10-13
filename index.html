@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mission: Impossible — The Unclickable Accept Button. Can you outsmart the rogue Terms of Service button? A hilarious interactive spy mini-game.">
+  <meta name="theme-color" content="#070a13">
+  <title>MISSION: IMPOSSIBLE — The Unclickable Accept Button</title>
+  
+  <!-- Google Fonts for Tactical Cyber Aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient High-Tech Grid & Scanline FX -->
+  <div class="cyber-grid" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+  <div class="radar-sweep" aria-hidden="true"></div>
+  <div class="ambient-glow glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow glow-2" aria-hidden="true"></div>
+
+  <!-- Confetti Canvas for Victory Celebration -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <div class="app-wrapper">
+    <!-- Top Tactical Status Bar -->
+    <header class="hud-top-bar">
+      <div class="hud-brand">
+        <span class="pulsing-beacon" aria-hidden="true"></span>
+        <span class="hud-classification">IMF SECURE TERMINAL // CLEARANCE: LEVEL 9</span>
+      </div>
+      <div class="hud-controls">
+        <div class="timer-display" title="Mission Elapsed Time">
+          <span class="hud-icon" aria-hidden="true">⏱️</span>
+          <span class="timer-label">TIME:</span>
+          <span id="mission-timer" class="timer-value">00:00.0</span>
+        </div>
+        <button id="sound-toggle-btn" class="hud-btn" type="button" aria-label="Toggle Audio Effects" title="Toggle Sound">
+          <span id="sound-icon" aria-hidden="true">🔊</span>
+          <span id="sound-status">SFX: ON</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Mission Container -->
+    <main class="mission-container">
+      <!-- Title & Briefing Header -->
+      <section class="mission-header text-center">
+        <div class="badge-tag">IMF PROTOCOL // OMEGA-TOS</div>
+        <h1 class="glitch-title" data-text="MISSION: IMPOSSIBLE">MISSION: IMPOSSIBLE</h1>
+        <p class="mission-subtitle">Your mission, should you choose to accept it, is to accept our terms.</p>
+      </section>
+
+      <!-- HUD Telemetry & Threat Assessment -->
+      <section class="telemetry-panel" aria-label="Mission Telemetry">
+        <div class="telemetry-grid">
+          <div class="telemetry-item">
+            <span class="telemetry-label">AGENT ATTEMPTS</span>
+            <div class="telemetry-value-row">
+              <span id="attempt-counter" class="telemetry-number">0</span>
+              <span class="telemetry-target">/ 10 (MAX THRESHOLD)</span>
+            </div>
+          </div>
+
+          <div class="telemetry-item">
+            <span class="telemetry-label">BUTTON STAMINA / DEFENSE</span>
+            <div class="progress-bar-container">
+              <div id="defense-progress" class="progress-bar-fill" style="width: 100%;"></div>
+            </div>
+            <div class="telemetry-status-row">
+              <span id="defense-label" class="telemetry-status">DEFENSE: 100% (IMPENETRABLE)</span>
+            </div>
+          </div>
+
+          <div class="telemetry-item status-badge-item">
+            <span class="telemetry-label">SYSTEM DIAGNOSTIC</span>
+            <div id="status-badge" class="tactical-badge status-alert">
+              EVASION PROTOCOLS ACTIVE
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Terms & Conditions Dossier Card -->
+      <section class="terms-card" aria-labelledby="terms-heading">
+        <div class="card-header">
+          <div class="header-left">
+            <span class="doc-icon" aria-hidden="true">📂</span>
+            <div>
+              <h2 id="terms-heading" class="card-title">CLASSIFIED USER AGREEMENT & LIQUIDATION POLICY</h2>
+              <span class="card-meta">FILE ID: IMF-SEC-89241 // AMENDMENT 7B</span>
+            </div>
+          </div>
+          <div class="card-pills">
+            <span class="pill pill-warning">SELF-DESTRUCTIVE</span>
+            <span class="pill pill-cyan">EYES ONLY</span>
+          </div>
+        </div>
+
+        <!-- Scrollable Humorous Clauses -->
+        <div class="terms-scroll-area" tabindex="0" role="region" aria-label="Terms and Conditions text">
+          <article class="clause-item">
+            <div class="clause-num">§ 1.0</div>
+            <div class="clause-content">
+              <h3>The Total Disavowal Agreement</h3>
+              <p>In the event that you encounter a 404 error, drop your coffee, or are trapped inside a ceiling ventilation shaft, the Secretary will disavow all knowledge of your actions. Your browser history will be archived directly to the National Archives under "Comedic Failures".</p>
+            </div>
+          </article>
+
+          <article class="clause-item">
+            <div class="clause-num">§ 2.0</div>
+            <div class="clause-content">
+              <h3>Perpetual Forfeiture of Espresso Privileges</h3>
+              <p>By engaging with this interface, you irrevocably surrender 60% of all caffeinated beverages currently stored in your kitchen to Impossible Missions Force covert operatives. Cold brew derivatives are non-refundable.</p>
+            </div>
+          </article>
+
+          <article class="clause-item">
+            <div class="clause-num">§ 3.0</div>
+            <div class="clause-content">
+              <h3>Self-Destructing HTTP Cookies</h3>
+              <p>All browser tracking cookies delivered through this terminal are embedded with micro-thermite charges. They will smoke, fizz, and dramaticly self-destruct five seconds after your session expires. Please keep a fire extinguisher near your router.</p>
+            </div>
+          </article>
+
+          <article class="clause-item">
+            <div class="clause-num">§ 4.0</div>
+            <div class="clause-content">
+              <h3>Laser Hallway & Ceiling Vault Indemnity</h3>
+              <p>Should you trigger an infrared ceiling laser, trip over your desk wiring, or fail a 360-degree backflip off your ergonomic chair, IMF assumes zero liability for scorched hair or wounded pride.</p>
+            </div>
+          </article>
+
+          <article class="clause-item">
+            <div class="clause-num">§ 5.0</div>
+            <div class="clause-content">
+              <h3>Quantum Entanglement Clause</h3>
+              <p>By attempting to click “Accept”, you acknowledge that in an alternate dimension, a version of you has already accepted, declined, and accidentally ordered 400 rubber ducks to headquarters.</p>
+            </div>
+          </article>
+
+          <article class="clause-item">
+            <div class="clause-num">§ 6.0</div>
+            <div class="clause-content">
+              <h3>Toaster Surveillance Disclaimer</h3>
+              <p>We are definitely not listening through your smart toaster. Any faint whispers of <em>"mission parameters confirmed"</em> while heating sourdough bagels are purely atmospheric anomalies.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="terms-footer-note">
+          <label class="custom-checkbox-label">
+            <input type="checkbox" id="terms-agree-check" checked disabled>
+            <span class="custom-checkmark" aria-hidden="true"></span>
+            <span>Mandatory checkbox: I swear I have read all 94 pages of microscopic fine print without blinking.</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Live Terminal Dialogue / Taunt Banner -->
+      <div class="dialogue-banner-container" aria-live="polite">
+        <div class="dialogue-avatar" aria-hidden="true">🤖</div>
+        <div class="dialogue-content">
+          <span class="dialogue-speaker">ROGUE ACCEPT-BOT 9000:</span>
+          <p id="dialogue-text" class="dialogue-message">"Target locked. You really think your mouse is fast enough, Agent? Try me."</p>
+        </div>
+      </div>
+
+      <!-- Tactical Battle Arena (Engagement Zone) -->
+      <section class="arena-zone" id="arena-zone" aria-label="Button Engagement Zone">
+        <div class="arena-laser-border" aria-hidden="true"></div>
+        <div class="arena-grid-lines" aria-hidden="true"></div>
+        <span class="arena-tag top-left" aria-hidden="true">GRID SECTOR: 07-ALPHA</span>
+        <span class="arena-tag top-right" aria-hidden="true">TACTICAL LOCK: ON</span>
+        <span class="arena-tag bottom-left" aria-hidden="true">DEFENSIVE SHIELD: ACTIVE</span>
+        <span class="arena-tag bottom-right" aria-hidden="true">SURRENDER: AT 10 DODGES</span>
+
+        <!-- The Button Playfield / Dynamic Action Row -->
+        <div class="button-dock" id="button-dock">
+          <!-- Floating Near-Miss Taunt Spawner (JS dynamically spawns floating words here) -->
+          <div id="float-text-layer" class="float-text-layer" aria-hidden="true"></div>
+          <!-- The Elusive Accept Button -->
+          <button 
+            type="button" 
+            id="accept-btn" 
+            class="action-btn btn-accept" 
+            aria-label="Accept terms and conditions"
+          >
+            <span class="btn-shine" aria-hidden="true"></span>
+            <span class="btn-icon" id="accept-btn-icon" aria-hidden="true">⚡</span>
+            <span class="btn-text" id="accept-btn-text">Accept</span>
+          </button>
+
+          <!-- Standard Decline Button -->
+          <button 
+            type="button" 
+            id="decline-btn" 
+            class="action-btn btn-decline" 
+            aria-label="Decline terms and abort mission"
+          >
+            <span class="btn-icon" aria-hidden="true">✖</span>
+            <span class="btn-text">Decline</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Tactical Tip Note -->
+      <p class="mission-hint">
+        <span class="hint-icon" aria-hidden="true">💡</span>
+        <strong>INTEL TIP:</strong> The Accept button's evasive engine runs hot. Keep pursuing it! At <strong>10 failed attempts</strong>, its thermal cores will overheat and surrender completely!
+      </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="hud-footer">
+      <p>IMF CYBERSECURITY DIVISION &bull; MISSION IMPOSSIBLE PROTOCOL &bull; WINNABLE BY DESIGN</p>
+    </footer>
+  </div>
+
+  <!-- MODAL: Decline / Abort Mission Confirmation -->
+  <div id="decline-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="decline-modal-title">
+    <div class="modal-card modal-danger">
+      <div class="modal-glow-strip"></div>
+      <div class="modal-header">
+        <span class="modal-icon-badge" aria-hidden="true">⚠️</span>
+        <h2 id="decline-modal-title">ABORT MISSION CONFIRMATION</h2>
+      </div>
+      <div class="modal-body">
+        <p class="modal-lead">Are you absolutely sure you want to give up, Agent?</p>
+        <p class="modal-desc">
+          If you abandon this mission now, IMF Director will disavow all your credentials. 
+          Your desk chair will be replaced with a wooden stool, and your coffee beans will be permanently downgraded to instant decaf.
+        </p>
+        <div class="cowardice-meter">
+          <span>COWARDICE INDEX:</span>
+          <span class="stat-red">CRITICAL (99.9%)</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="modal-resume-btn" class="modal-btn btn-cyan">
+          <span>🛡️</span> Try Again (Back to the Field)
+        </button>
+        <button type="button" id="modal-abandon-btn" class="modal-btn btn-crimson">
+          <span>🏳️</span> Abandon Mission (Accept Dishonor)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN: Humorous Abandoned / Disavowed Failure Screen -->
+  <div id="abandon-screen" class="full-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="abandon-title">
+    <div class="overlay-card disavowed-card">
+      <div class="alarm-siren" aria-hidden="true">🚨</div>
+      <div class="stamp-seal disavowed-stamp">DISAVOWED</div>
+      <h2 id="abandon-title" class="overlay-title text-danger">MISSION ABANDONED: AGENT DISAVOWED</h2>
+      <p class="overlay-subtitle">"The Secretary will deny all knowledge of your existence."</p>
+
+      <div class="debrief-dossier">
+        <div class="dossier-row">
+          <span class="dossier-k">AGENT STATUS:</span>
+          <span class="dossier-v text-danger">RETIRED TO SOFA WITH POTATO CHIPS</span>
+        </div>
+        <div class="dossier-row">
+          <span class="dossier-k">ATTEMPTS BEFORE QUITTING:</span>
+          <span id="abandon-attempts" class="dossier-v">0</span>
+        </div>
+        <div class="dossier-row">
+          <span class="dossier-k">TIME IN COMBAT:</span>
+          <span id="abandon-time" class="dossier-v">00:00.0</span>
+        </div>
+        <div class="dossier-row">
+          <span class="dossier-k">RECOMMENDATION:</span>
+          <span class="dossier-v">REASSIGN TO RE-FILING MANILA FOLDERS IN BASEMENT B</span>
+        </div>
+      </div>
+
+      <div class="overlay-actions">
+        <button type="button" id="abandon-retry-btn" class="hero-btn btn-gold">
+          <span>🔄</span> Reactivate Agent (Try Again)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN: Mission Accomplished Victory Screen -->
+  <div id="victory-screen" class="full-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="victory-title">
+    <div class="overlay-card victory-card">
+      <div class="victory-header-flair">
+        <span class="star-badge" aria-hidden="true">⭐</span>
+        <span class="star-badge" aria-hidden="true">⭐</span>
+        <span class="star-badge" aria-hidden="true">⭐</span>
+      </div>
+      <div class="stamp-seal approved-stamp">APPROVED BY IMF</div>
+      
+      <h2 id="victory-title" class="overlay-title text-gold">MISSION ACCOMPLISHED!</h2>
+      <p class="overlay-subtitle">You broke through the rogue button's defenses and accepted the terms!</p>
+
+      <!-- Victory Debrief Stats -->
+      <div class="victory-stats-grid">
+        <div class="v-stat-box">
+          <span class="v-stat-icon" aria-hidden="true">🎯</span>
+          <span class="v-stat-num" id="victory-attempts">0</span>
+          <span class="v-stat-label">TOTAL DODGES SURVIVED</span>
+        </div>
+
+        <div class="v-stat-box">
+          <span class="v-stat-icon" aria-hidden="true">⏱️</span>
+          <span class="v-stat-num" id="victory-time">00:00.0</span>
+          <span class="v-stat-label">MISSION COMPLETION TIME</span>
+        </div>
+
+        <div class="v-stat-box">
+          <span class="v-stat-icon" aria-hidden="true">🎖️</span>
+          <span class="v-stat-num rank-badge-text" id="victory-rank">ETHAN HUNT</span>
+          <span class="v-stat-label">AGENT SPECIAL RANK</span>
+        </div>
+      </div>
+
+      <div class="victory-quote-card">
+        <p id="victory-quote">"IMF Director: Outstanding persistence, Agent! The world's coffee reserves and your browser cookies are officially safe."</p>
+      </div>
+
+      <div class="overlay-actions">
+        <button type="button" id="victory-play-again-btn" class="hero-btn btn-cyan-glow">
+          <span>🎮</span> Accept Next Mission (Play Again)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
